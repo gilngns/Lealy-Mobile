@@ -1,0 +1,14 @@
+<resources>
+    <!-- SplashScreen Theme -->
+    <style name="Theme.App.Lealy" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splashlgo</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.Lealy</item>
+    </style>
+
+    <!-- Main App Theme -->
+    <style name="Theme.Lealy" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>
