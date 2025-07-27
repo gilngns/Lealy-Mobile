@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:home"))
     implementation(libs.androidx.activity.compose)
     implementation("androidx.compose.ui:ui:1.6.1")
     implementation("androidx.compose.material3:material3:1.2.0")

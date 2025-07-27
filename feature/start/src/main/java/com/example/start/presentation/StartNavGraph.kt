@@ -1,11 +1,14 @@
 package com.example.start.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.start.R
 import com.example.start.presentation.screen.*
+import com.example.home.ui.HomeScreen
 
 @Composable
 fun StartNavGraph(navController: NavHostController) {
@@ -41,6 +44,9 @@ fun StartNavGraph(navController: NavHostController) {
                 navController = navController,
                 viewModel = startViewModel
             )
+        }
+        composable("home") {
+            HomeScreen()
         }
     }
 }

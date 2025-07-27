@@ -1,5 +1,6 @@
 package com.example.home.ui.components
 
+import Poppins
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,9 +28,9 @@ fun FeatureItem(
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(13.dp))
             .background(Color(0x0D0069D9))
-            .padding(16.dp),
+            .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -41,10 +43,12 @@ fun FeatureItem(
 
         Text(
             text = title,
-            fontSize = 12.sp,
+            fontSize = 11.sp,
             color = Color(0xFF1A1A1A),
             textAlign = TextAlign.Center,
             modifier = Modifier.width(100.dp),
+            fontFamily = Poppins,
+            fontWeight = FontWeight.W400,
             lineHeight = 14.sp,
             maxLines = 2
         )

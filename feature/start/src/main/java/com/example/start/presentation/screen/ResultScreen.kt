@@ -169,11 +169,13 @@
 
             Button(
                 onClick = {
-                    // TODO: Navigasi ke halaman belajar
+                    navController?.navigate("home") {
+                        popUpTo(0) { inclusive = true }
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp), // <- Konsisten di seluruh halaman
+                    .height(48.dp),
                 shape = RoundedCornerShape(8.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF0057FF),

@@ -1,60 +1,69 @@
 package com.example.lealy
 
-import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.compose.rememberNavController
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.example.home.ui.MainScreen
 import com.example.lealy.ui.theme.LealyTheme
-import com.example.start.presentation.StartNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        // SplashScreen Android 12+
-        val splashScreen = installSplashScreen()
 
+        val splashScreen = installSplashScreen()
         var keepSplashScreen = true
         splashScreen.setKeepOnScreenCondition { keepSplashScreen }
 
         super.onCreate(savedInstanceState)
 
-        // Tahan splash selama 3 detik
         Handler(Looper.getMainLooper()).postDelayed({
             keepSplashScreen = false
         }, 3000)
 
+        // ✅ Izinkan menggambar di belakang status bar
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // ✅ Behavior agar status bar bisa disembunyikan dan muncul saat swipe
+        val controller = WindowInsetsControllerCompat(window, window.decorView)
+        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        controller.hide(WindowInsetsCompat.Type.statusBars())
+
+        // ✅ Navigation bar tetap putih
+        window.navigationBarColor = android.graphics.Color.WHITE
+        controller.isAppearanceLightNavigationBars = true
+
+        // ✅ Status bar transparan dengan icon putih
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        controller.isAppearanceLightStatusBars = false
+
+        // ✅ Pantau insets untuk mendeteksi jika user swipe status bar
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { view, insets ->
+            val isStatusBarVisible = insets.isVisible(WindowInsetsCompat.Type.statusBars())
+            if (isStatusBarVisible) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    controller.hide(WindowInsetsCompat.Type.statusBars())
+                }, 3000) // Delay 3 detik, lalu sembunyikan status bar lagi
+            }
+            ViewCompat.onApplyWindowInsets(view, insets)
+        }
+
         setContent {
             LealyTheme {
-                val navController = rememberNavController()
-
-                StatusBarVisibility()
-
-                StartNavGraph(navController = navController)
+                MainScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .systemBarsPadding()
+                )
             }
-        }
-    }
-}
-
-@Composable
-fun StatusBarVisibility() {
-    val context = LocalContext.current
-    val activity = context as? Activity
-
-    LaunchedEffect(Unit) {
-        activity?.let {
-            val window = it.window
-            val controller = WindowInsetsControllerCompat(window, window.decorView)
-
-            WindowCompat.setDecorFitsSystemWindows(window, true)
-            window.statusBarColor = android.graphics.Color.WHITE
-            controller.isAppearanceLightStatusBars = true
         }
     }
 }

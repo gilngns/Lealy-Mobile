@@ -53,13 +53,14 @@ dependencies {
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.navigation:navigation-compose:2.7.3")
     implementation(libs.androidx.runtime.android)
-
+    implementation("androidx.compose.foundation:foundation:1.4.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.compose.foundation:foundation-layout")
     implementation("androidx.compose.material:material-icons-extended")
-
+    implementation ("io.github.being-eyram:iconsax-android:1.0.0")
+    implementation ("androidx.appcompat:appcompat:1.6.1")
     debugImplementation(libs.androidx.ui.tooling)
 
     testImplementation(libs.junit)
