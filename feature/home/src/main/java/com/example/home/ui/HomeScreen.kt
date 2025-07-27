@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
@@ -39,7 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -56,7 +54,6 @@ import com.example.home.ui.components.FeatureItem
 import com.example.home.ui.components.InsightCard
 import com.example.home.ui.components.ProgressCard
 import com.example.home.ui.components.SimulationPortfolioCard
-import com.example.home.ui.theme.BluePrimary
 import curvedBottomShape
 
 @Composable
@@ -108,8 +105,6 @@ fun HomeScreenContent(
                 .fillMaxWidth()
                 .height(headerHeight)
                 .clip(curvedBottomShape())
-                .background(BluePrimary)
-                .systemBarsPadding()
         ) {
             Image(
                 painter = backgroundImage,
@@ -126,16 +121,16 @@ fun HomeScreenContent(
                     .statusBarsPadding()
                     .padding(horizontal = 24.dp)
             ) {
-                Spacer(modifier = Modifier.height(60.dp))
+                Spacer(modifier = Modifier.height(45.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically // Ubah jadi center
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
                         Text(
-                            text = "Halo,\nFajarWG",
-                            fontSize = 20.sp,
+                            text = "Halo,\nGilangNS",
+                            fontSize = 25.sp,
                             color = Color.White,
                             fontWeight = FontWeight.SemiBold,
                             fontFamily = FontFamily.Default
@@ -306,17 +301,16 @@ fun HomeScreenContent(
 @Preview(showBackground = false, backgroundColor = 0xFFF7F7F7, device = Devices.NEXUS_5)
 @Composable
 fun HomeScreenPreview() {
-    val placeholder = ColorPainter(Color.LightGray)
     Surface {
         HomeScreenContent(
             progress = 0.5f,
             current = 5,
             total = 10,
             level = "Beginner",
-            image1 = placeholder,
-            image2 = placeholder,
-            newsImage = placeholder,
-            backgroundImage = placeholder
+            image1 = painterResource(id = R.drawable.iconmk),
+            image2 = painterResource(id = R.drawable.iconai),
+            newsImage = painterResource(id = R.drawable.berita),
+            backgroundImage = painterResource(id = R.drawable.bghome)
         )
     }
 }

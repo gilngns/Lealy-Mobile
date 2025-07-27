@@ -20,7 +20,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
     val showBottomBar = selectedRoute != "profil"
 
     Scaffold(
-        modifier = modifier, // ← ✅ Pakai modifier di sini
+        modifier = modifier,
         bottomBar = {
             if (showBottomBar) {
                 BottomNavBar(
