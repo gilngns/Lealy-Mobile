@@ -1,6 +1,5 @@
 package com.example.home.ui.components
 
-import Poppins
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,7 +23,6 @@ import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,14 +30,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.home.R
 
 @Composable
 fun ProgressCard(
@@ -52,99 +47,94 @@ fun ProgressCard(
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val cardHeight = screenWidth * 0.27f
-    val progressBoxSize = screenWidth * 0.2f
+    val progressBoxSize = 80.dp
 
     Card(
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
+        shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        modifier = modifier
-            .fillMaxWidth()
-            .height(cardHeight)
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        modifier = modifier.height(cardHeight)
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(1.dp)
         ) {
+            // Kotak kiri (50%)
             Box(
                 modifier = Modifier
                     .size(progressBoxSize)
-                    .background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(12.dp))
-                    .border(2.dp, Color.White, RoundedCornerShape(12.dp)),
+                    .border(1.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(8.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = "${(progress * 100).toInt()}%",
-                    color = Color.White,
                     fontSize = 19.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = FontFamily(Font(R.font.poppins_bold))
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(16.dp))
 
+            // Kolom kanan
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    "Progress Pelajaran Anda",
-                    color = Color.White,
+                    text = "Progress Pelajaran Anda",
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = Poppins
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
-                Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    "Level Literasi: $level",
-                    color = Color.White.copy(alpha = 0.85f),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontFamily = Poppins
+                    text = "Level Literasi: $level",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(6.dp)
-                        .clip(RoundedCornerShape(50))
-                        .background(Color.White.copy(alpha = 0.3f))
+                        .clip(RoundedCornerShape(3.dp))
+                        .background(Color.White.copy(alpha = 0.3f)) // Track-nya
                 ) {
                     Box(
                         modifier = Modifier
+                            .fillMaxWidth(fraction = progress)
                             .fillMaxHeight()
-                            .fillMaxWidth(progress.coerceIn(0f, 1f))
-                            .clip(RoundedCornerShape(50))
                             .background(Color.White)
                     )
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        "$current dari $total video sudah selesai!",
-                        color = Color.White,
-                        fontSize = 10.sp,
-                        fontFamily = Poppins
+                        text = "$current dari $total video  sudah selesai",
+                        fontSize = 12.sp,
+                        color = Color.White
                     )
-                    Spacer(modifier = Modifier.weight(1f))
                     Icon(
                         imageVector = Icons.Default.ArrowForward,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier.size(14.dp)
+                        contentDescription = "Next",
+                        tint = Color.White
                     )
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun SimulationPortfolioCard(
@@ -153,24 +143,20 @@ fun SimulationPortfolioCard(
     growthPercent: String,
     modifier: Modifier = Modifier
 ) {
-    val configuration = LocalConfiguration.current
-    val screenWidth = configuration.screenWidthDp.dp
-    val cardHeight = screenWidth * 0.27f
-
     Card(
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
+        shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.6f)),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         modifier = modifier
             .fillMaxWidth()
-            .height(cardHeight)
+            .height(100.dp) // Tinggi tetap
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(
                 modifier = Modifier.weight(1f)
@@ -178,9 +164,9 @@ fun SimulationPortfolioCard(
                 Text(
                     text = "Total Simulation Portfolio",
                     fontSize = 12.sp,
-                    color = Color.White.copy(alpha = 0.8f)
+                    color = Color.White.copy(alpha = 0.85f)
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(6.dp))
                 Text(
                     text = "Rp $totalAmount",
                     fontSize = 20.sp,
@@ -188,44 +174,57 @@ fun SimulationPortfolioCard(
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Box(
+                Row(
                     modifier = Modifier
-                        .background(Color(0xFFDCF5EC), shape = RoundedCornerShape(6.dp))
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(Color(0xFFDCF5EC))
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.TrendingUp,
-                            contentDescription = "Up",
-                            tint = Color(0xFF12B76A),
-                            modifier = Modifier.size(14.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "Rp$growthAmount (+$growthPercent)",
-                            fontSize = 12.sp,
-                            color = Color(0xFF12B76A),
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.Default.TrendingUp,
+                        contentDescription = null,
+                        tint = Color(0xFF12B76A),
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Rp$growthAmount (+$growthPercent)",
+                        fontSize = 12.sp,
+                        color = Color(0xFF12B76A),
+                        fontWeight = FontWeight.Medium
+                    )
                 }
             }
 
-            IconButton(
-                onClick = { /* TODO */ },
+            Column(
                 modifier = Modifier
-                    .size(36.dp)
-                    .border(1.dp, Color.White.copy(alpha = 0.5f), shape = RoundedCornerShape(10.dp))
+                    .padding(top = 0.dp, end = 4.dp),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.End
             ) {
-                Icon(
-                    imageVector = Icons.Default.ChevronRight,
-                    contentDescription = "Next",
-                    tint = Color.White.copy(alpha = 0.9f)
-                )
+                Box(
+                    modifier = Modifier
+                        .size(40.dp) // Ini hanya mengatur ukuran kotak border-nya
+                        .border(
+                            width = 1.dp,
+                            color = Color.White.copy(alpha = 0.6f),
+                            shape = RoundedCornerShape(6.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = "Next",
+                        tint = Color.White.copy(alpha = 0.95f),
+                        modifier = Modifier.size(20.dp) // Ukuran icon bebas
+                    )
+                }
             }
         }
     }
 }
+
 
 @Preview(
     showBackground = true,

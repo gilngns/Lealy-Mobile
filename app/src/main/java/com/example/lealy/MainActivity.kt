@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
         // ✅ Behavior agar status bar bisa disembunyikan dan muncul saat swipe
         val controller = WindowInsetsControllerCompat(window, window.decorView)
         controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        controller.hide(WindowInsetsCompat.Type.statusBars())
+//        controller.hide(WindowInsetsCompat.Type.statusBars())
 
         // ✅ Navigation bar tetap putih
         window.navigationBarColor = android.graphics.Color.WHITE

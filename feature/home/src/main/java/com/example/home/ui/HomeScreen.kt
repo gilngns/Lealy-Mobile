@@ -14,12 +14,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
@@ -55,6 +57,7 @@ import com.example.home.ui.components.InsightCard
 import com.example.home.ui.components.ProgressCard
 import com.example.home.ui.components.SimulationPortfolioCard
 import com.example.home.ui.theme.BluePrimary
+import curvedBottomShape
 
 @Composable
 fun HomeScreen() {
@@ -84,8 +87,12 @@ fun HomeScreenContent(
 ) {
     val scrollState = rememberScrollState()
     val pagerState = rememberPagerState(pageCount = { 2 })
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    val cardWidth = screenWidth * 0.8f
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
+    val screenHeight = configuration.screenHeightDp.dp
+    val horizontalPadding = 24.dp
+    val cardWidth = screenWidth - (horizontalPadding * 2)
+    val headerHeight = (screenHeight * 0.42f).coerceIn(350.dp, 400.dp)
 
 
     Column(
@@ -99,8 +106,8 @@ fun HomeScreenContent(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(330.dp)
-                .clip(RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp))
+                .height(headerHeight)
+                .clip(curvedBottomShape())
                 .background(BluePrimary)
                 .systemBarsPadding()
         ) {
@@ -114,10 +121,12 @@ fun HomeScreenContent(
             Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .wrapContentHeight()
                     .statusBarsPadding()
-                    .padding(horizontal = 24.dp, vertical = 24.dp)
+                    .padding(horizontal = 24.dp)
             ) {
+                Spacer(modifier = Modifier.height(60.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -164,29 +173,30 @@ fun HomeScreenContent(
                 HorizontalPager(
                     state = pagerState,
                     pageSize = PageSize.Fixed(cardWidth),
-                    pageSpacing = 16.dp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(190.dp),
-                    contentPadding = PaddingValues(horizontal = 16.dp)
+                    pageSpacing = 12.dp,
+                    contentPadding = PaddingValues(start = horizontalPadding - 24.dp, end = horizontalPadding),
+                            modifier = Modifier
+                        .wrapContentHeight()
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 24.dp, bottom = 13.dp)
                 ) { page ->
+                    val cardModifier = Modifier
+                        .width(cardWidth)
+                        .heightIn(min = 118.dp)
+
                     when (page) {
                         0 -> ProgressCard(
                             progress = progress,
                             current = current,
                             total = total,
                             level = level,
-                            modifier = Modifier
-                                .width(cardWidth)
-                                .height(150.dp)
+                            modifier = cardModifier
                         )
                         1 -> SimulationPortfolioCard(
                             totalAmount = "1.000.000",
                             growthAmount = "150.000",
                             growthPercent = "2.5%",
-                            modifier = Modifier
-                                .width(cardWidth)
-                                .height(150.dp)
+                            modifier = cardModifier
                         )
                     }
                 }
@@ -218,8 +228,8 @@ fun HomeScreenContent(
             elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .offset(y = (-24).dp)
-                .padding(horizontal = 24.dp)
+                .offset(y = (-45).dp) // Tetap naikkan fitur
+                .padding(horizontal = 18.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
@@ -240,11 +250,12 @@ fun HomeScreenContent(
             }
         }
 
-        // INSIGHT
+        // INSIGHT - ditarik naik agar tidak terlalu jauh
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .offset(y = (-20).dp) // Tarik ke atas agar lebih dekat ke fitur
+                .padding(horizontal = 18.dp)
         ) {
             Text(
                 "Insight Hari Ini",
@@ -256,11 +267,10 @@ fun HomeScreenContent(
             Spacer(modifier = Modifier.height(5.dp))
             InsightCard(
                 insight = "Coba pelajari perbedaan saham vs reksadana hari ini",
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
             )
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
 
         // BERITA
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
