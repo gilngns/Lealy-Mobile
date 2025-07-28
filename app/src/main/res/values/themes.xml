@@ -1,11 +1,11 @@
 <resources>
     <!-- SplashScreen Theme -->
     <style name="Theme.App.Lealy" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splashlgo</item>
+<!--        <item name="windowSplashScreenBrandingImage">@drawable/splashlgo</item>-->
         <item name="windowSplashScreenIconBackgroundColor">@android:color/white</item>
         <item name="postSplashScreenTheme">@style/Theme.Lealy</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@drawable/splash_icon</item>
 
         <!-- no action bar -->
         <item name="windowActionBar">false</item>

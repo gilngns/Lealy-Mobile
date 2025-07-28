@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.education.ui.screen.EducationScreen
 import com.example.home.ui.components.BottomNavBar
 import com.example.home.ui.components.BottomNavItems
 
@@ -33,7 +34,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         Box(modifier = Modifier.padding(innerPadding)) {
             when (selectedRoute) {
                 "home" -> HomeScreen()
-                "edukasi" -> EdukasiScreen()
+                "edukasi" -> EducationScreen()
                 "simulasi" -> SimulasiScreen()
                 "profil" -> ProfilScreen()
             }

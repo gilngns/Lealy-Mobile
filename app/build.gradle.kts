@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:login"))
     implementation(project(":feature:start"))
+    implementation(project(":feature:education"))
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation("androidx.compose.runtime:runtime-livedata")

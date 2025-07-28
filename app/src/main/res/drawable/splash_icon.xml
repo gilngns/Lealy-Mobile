@@ -1,10 +1,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:color/white" />
+    <item android:drawable="@android:color/white"/>
 
     <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/lgo"
-            />
+        <inset
+            android:insetBottom="90dp"
+            >
+            <bitmap
+                android:src="@drawable/lgo"
+                android:gravity="center"/>
+        </inset>
     </item>
 </layer-list>

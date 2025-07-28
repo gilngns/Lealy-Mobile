@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 MainScreen(
                     modifier = Modifier
                         .fillMaxSize()
-                        .systemBarsPadding() // penting supaya konten nggak ketabrak status bar
+                        .systemBarsPadding()
                 )
             }
         }
